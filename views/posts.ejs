@@ -20,7 +20,11 @@
             <button>View</button>
         </form>
         <form action="/posts/<%=post.id%>/edit" style="display: inline;" ><button>Edit Post</button></form>
+        </form>
+        <form action="/posts/<%=post.id%>?_method=DELETE" method="POST" style="display: inline;" ><button>Delete Post</button></form>
         <br><hr>
+        <br><hr>
+
  <%   } %>
 </body>
 </html>
