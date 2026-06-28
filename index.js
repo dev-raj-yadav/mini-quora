@@ -36,6 +36,19 @@ app.get("/posts",(req,res)=>{
     res.render("posts.ejs",{posts});
 })
 
+//Form for adding Post
+app.get("/posts/new",(req,res)=>{
+    res.render("new.ejs");
+})
+
+//add post page
+app.post("/posts",(req,res)=>{
+    let id=uuidv4();
+    let{username,title,description}=req.body;
+    posts.push({id,username,title,description});
+    res.redirect("/posts");
+})
+
 
 app.listen(port,()=>{
     console.log(`App is listening on port ${port}`)
