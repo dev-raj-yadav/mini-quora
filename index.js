@@ -3,10 +3,12 @@ const path=require("path")
 const app=express();
 const port=8080;
 const {v4:uuidv4}=require("uuid")
+const methodOverride=require("method-override")
 app.set("view engine","ejs")
 app.set("views",path.join(__dirname,"views"))
 app.use(express.static(path.join(__dirname,"public")))
 app.use(express.urlencoded({extended:true}))
+app.use(methodOverride("_method"));
 
 
 //databases
@@ -48,6 +50,37 @@ app.post("/posts",(req,res)=>{
     posts.push({id,username,title,description});
     res.redirect("/posts");
 })
+
+//show post individually
+app.get("/posts/:id",(req,res)=>{
+let {id}=req.params;
+let post=posts.find((p)=>id===p.id);
+    res.render("show",{post})
+})
+
+//form for updating the exisitng posts
+app.get("/posts/:id/edit",(req,res)=>{
+    let {id}=req.params;
+    let post=posts.find((p)=>id===p.id);
+
+    res.render("edit",{post})
+})
+
+app.patch("/posts/:id",(req,res)=>{
+    let {id}=req.params;
+    let post=posts.find((p)=>id===p.id);
+    console.log(post)
+    let newTitle=req.body.title;
+    let newDescription=req.body.description;
+    console.log(newTitle,newDescription);
+    post.title=newTitle;
+    post.description=newDescription;
+   res.redirect("/posts");
+   
+})
+
+
+
 
 
 app.listen(port,()=>{

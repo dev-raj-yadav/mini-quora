@@ -16,7 +16,11 @@
         <h3>Title : <%= post.title %> </h3>
         <h3>Description : <%= post.description %> </h3>
         </div>
-        <br> <hr>
+        <form action="/posts/<%=post.id%>" style="display: inline;">
+            <button>View</button>
+        </form>
+        <form action="/posts/<%=post.id%>/edit" style="display: inline;" ><button>Edit Post</button></form>
+        <br><hr>
  <%   } %>
 </body>
 </html>
